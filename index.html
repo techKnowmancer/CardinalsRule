@@ -60,13 +60,13 @@
         .score-difference {
             font-size: 32px;
             margin-bottom: 20px;
-            animation: colorAnimation 3s;
+            animation: scoreAnimation 2s;
         }
 
-        @keyframes colorAnimation {
-            0% { color: green; }
-            50% { color: red; }
-            100% { color: green; }
+        @keyframes scoreAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         .button-container {
@@ -149,28 +149,19 @@
             if (team === 'home') {
                 homeScore++;
                 document.getElementById('home-score').innerText = homeScore;
-                animateScoreboard();
+                animateScoreDifference();
             } else if (team === 'away') {
                 awayScore++;
                 document.getElementById('away-score').innerText = awayScore;
-                animateScoreboard();
+                animateScoreDifference();
             }
-
-            updateScoreDifference();
-        }
-
-        function animateScoreboard() {
-            const scoreDifferenceElement = document.getElementById('score-difference');
-            scoreDifferenceElement.classList.remove('score-animation');
-            void scoreDifferenceElement.offsetWidth; // Trigger reflow
-            scoreDifferenceElement.classList.add('score-animation');
         }
 
         function updateOuts() {
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
 
-            if (outs === 6) {
+            if (outs === 3) {
                 nextInning();
             }
         }
@@ -178,28 +169,14 @@
         function nextInning() {
             outs = 0;
             document.getElementById('outs').innerText = 'Outs: 0';
-
-            updateScoreDifference();
         }
 
-        function updateScoreDifference() {
-            const scoreDifference = homeScore - awayScore;
-            const scoreDifferenceText = scoreDifference >= 0 ? `Winning by ${scoreDifference}` : `Losing by ${Math.abs(scoreDifference)}`;
+        function animateScoreDifference() {
             const scoreDifferenceElement = document.getElementById('score-difference');
-
-            scoreDifferenceElement.innerText = scoreDifferenceText;
-
-            // Add a class based on the score difference to apply styling
-            if (scoreDifference > 0) {
-                scoreDifferenceElement.classList.add('winning');
-                scoreDifferenceElement.classList.remove('losing');
-            } else if (scoreDifference < 0) {
-                scoreDifferenceElement.classList.add('losing');
-                scoreDifferenceElement.classList.remove('winning');
-            } else {
-                scoreDifferenceElement.classList.remove('winning');
-                scoreDifferenceElement.classList.remove('losing');
-            }
+            scoreDifferenceElement.classList.add('score-animation');
+            setTimeout(() => {
+                scoreDifferenceElement.classList.remove('score-animation');
+            }, 2000);
         }
 
         function updateTime() {
