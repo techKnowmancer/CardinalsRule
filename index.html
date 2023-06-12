@@ -60,6 +60,13 @@
         .score-difference {
             font-size: 32px;
             margin-bottom: 20px;
+            animation: colorAnimation 3s;
+        }
+
+        @keyframes colorAnimation {
+            0% { color: green; }
+            50% { color: red; }
+            100% { color: green; }
         }
 
         .button-container {
@@ -101,20 +108,6 @@
             font-weight: bold;
             color: #333333;
         }
-
-        .clock {
-            display: inline-block;
-            animation: clockAnimation 1s linear infinite;
-        }
-
-        @keyframes clockAnimation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 </head>
 <body>
@@ -143,8 +136,8 @@
         </div>
     </div>
 
-    <div class="clock-container">
-        <span class="clock">⏰</span>
+    <div class="clock-container" id="clock-container">
+        <span id="current-time"></span>
     </div>
 
     <script>
@@ -167,19 +160,17 @@
         }
 
         function animateScoreboard() {
-            const scoreboard = document.querySelector('.scoreboard');
-            scoreboard.classList.remove('score-animation');
-
-            void scoreboard.offsetWidth; // Trigger reflow
-
-            scoreboard.classList.add('score-animation');
+            const scoreDifferenceElement = document.getElementById('score-difference');
+            scoreDifferenceElement.classList.remove('score-animation');
+            void scoreDifferenceElement.offsetWidth; // Trigger reflow
+            scoreDifferenceElement.classList.add('score-animation');
         }
 
         function updateOuts() {
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
 
-            if (outs === 3) {
+            if (outs === 6) {
                 nextInning();
             }
         }
@@ -210,6 +201,25 @@
                 scoreDifferenceElement.classList.remove('losing');
             }
         }
+
+        function updateTime() {
+            const currentTime = new Date();
+            const hours = currentTime.getHours();
+            const minutes = currentTime.getMinutes();
+            const timeString = formatTime(hours, minutes);
+
+            document.getElementById('current-time').innerText = timeString;
+        }
+
+        function formatTime(hours, minutes) {
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+
+            return `${formattedHours}:${formattedMinutes}`;
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
