@@ -29,6 +29,12 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: scoreAnimation 1s ease infinite alternate;
+        }
+
+        @keyframes scoreAnimation {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         .team {
@@ -60,6 +66,13 @@
         .score-difference {
             font-size: 32px;
             margin-bottom: 20px;
+            animation: colorAnimation 1s ease infinite alternate;
+        }
+
+        @keyframes colorAnimation {
+            0% { color: green; }
+            50% { color: red; }
+            100% { color: green; }
         }
 
         .button-container {
@@ -76,6 +89,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
