@@ -10,12 +10,14 @@
             text-align: center;
             margin: 0;
             padding: 20px;
+            background-color: #f5f5f5;
         }
 
         #clock {
             font-size: 48px;
             font-weight: bold;
             margin-bottom: 20px;
+            color: #333333;
         }
 
         #scoreboard {
@@ -23,6 +25,10 @@
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .team {
@@ -37,17 +43,20 @@
         .team h3 {
             margin: 0;
             font-size: 18px;
+            color: #333333;
         }
 
         .team p {
             margin: 0;
             font-size: 24px;
+            color: #333333;
         }
 
         #game-info p {
             font-size: 18px;
             margin: 0;
             margin-bottom: 10px;
+            color: #555555;
         }
 
         .button-container {
@@ -81,8 +90,6 @@
     </style>
 </head>
 <body>
-    <h1>Baseball Score Tracker</h1>
-
     <div id="clock"></div>
 
     <div id="scoreboard">
@@ -168,10 +175,7 @@
             const now = new Date();
             const hours = now.getHours();
             const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const formattedHours = hours % 12 || 12;
-            const formattedTime = `${formattedHours}:${formatTime(minutes)}:${formatTime(seconds)} ${ampm}`;
+            const formattedTime = `${hours}:${formatTime(minutes)}`;
 
             document.getElementById('clock').innerText = formattedTime;
         }
@@ -180,8 +184,8 @@
             return time < 10 ? `0${time}` : time;
         }
 
-        // Update the clock every second
-        setInterval(updateClock, 1000);
+        // Update the clock every minute
+        setInterval(updateClock, 60000);
     </script>
 </body>
 </html>
