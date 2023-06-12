@@ -6,6 +6,62 @@
     <title>Baseball Score Tracker</title>
 </head>
 <body>
-    <h1>Welcome to the Baseball Score Tracker!</h1>
+    <h1>Baseball Score Tracker</h1>
+
+    <div id="scoreboard">
+        <h2>Score</h2>
+        <div id="home-team">
+            <h3>Home Team</h3>
+            <p id="home-score">0</p>
+        </div>
+        <div id="away-team">
+            <h3>Away Team</h3>
+            <p id="away-score">0</p>
+        </div>
+    </div>
+
+    <div id="game-info">
+        <h2>Game Info</h2>
+        <p id="inning">Inning: 1</p>
+        <p id="outs">Outs: 0</p>
+    </div>
+
+    <button onclick="updateScore('home')">Home Team Scores</button>
+    <button onclick="updateScore('away')">Away Team Scores</button>
+    <button onclick="updateOuts()">Out</button>
+    <button onclick="nextInning()">Next Inning</button>
+
+    <script>
+        // Variables to store the scores, inning, and outs
+        let homeScore = 0;
+        let awayScore = 0;
+        let inning = 1;
+        let outs = 0;
+
+        // Function to update the score for the specified team
+        function updateScore(team) {
+            if (team === 'home') {
+                homeScore++;
+                document.getElementById('home-score').innerText = homeScore;
+            } else if (team === 'away') {
+                awayScore++;
+                document.getElementById('away-score').innerText = awayScore;
+            }
+        }
+
+        // Function to update the number of outs
+        function updateOuts() {
+            outs++;
+            document.getElementById('outs').innerText = 'Outs: ' + outs;
+        }
+
+        // Function to go to the next inning
+        function nextInning() {
+            inning++;
+            outs = 0;
+            document.getElementById('inning').innerText = 'Inning: ' + inning;
+            document.getElementById('outs').innerText = 'Outs: 0';
+        }
+    </script>
 </body>
 </html>
