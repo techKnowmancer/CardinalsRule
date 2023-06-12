@@ -125,9 +125,8 @@
 
         <div class="game-info" id="game-info">
             <p id="outs">Outs: 0</p>
+            <p class="score-difference" id="score-difference"></p>
         </div>
-
-        <div class="score-difference" id="score-difference"></div>
 
         <div class="button-container">
             <button onclick="updateScore('home')">Cardinals Score</button>
@@ -155,6 +154,8 @@
                 document.getElementById('away-score').innerText = awayScore;
                 animateScoreDifference();
             }
+
+            updateScoreDifference();
         }
 
         function updateOuts() {
@@ -169,6 +170,8 @@
         function nextInning() {
             outs = 0;
             document.getElementById('outs').innerText = 'Outs: 0';
+
+            updateScoreDifference();
         }
 
         function animateScoreDifference() {
@@ -177,6 +180,26 @@
             setTimeout(() => {
                 scoreDifferenceElement.classList.remove('score-animation');
             }, 2000);
+        }
+
+        function updateScoreDifference() {
+            const scoreDifference = homeScore - awayScore;
+            const scoreDifferenceText = scoreDifference >= 0 ? `Winning by ${scoreDifference}` : `Losing by ${Math.abs(scoreDifference)}`;
+            const scoreDifferenceElement = document.getElementById('score-difference');
+
+            scoreDifferenceElement.innerText = scoreDifferenceText;
+
+            // Add a class based on the score difference to apply styling
+            if (scoreDifference > 0) {
+                scoreDifferenceElement.classList.add('winning');
+                scoreDifferenceElement.classList.remove('losing');
+            } else if (scoreDifference < 0) {
+                scoreDifferenceElement.classList.add('losing');
+                scoreDifferenceElement.classList.remove('winning');
+            } else {
+                scoreDifferenceElement.classList.remove('winning');
+                scoreDifferenceElement.classList.remove('losing');
+            }
         }
 
         function updateTime() {
