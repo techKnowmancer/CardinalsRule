@@ -10,7 +10,9 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         .scoreboard-container {
@@ -55,11 +57,13 @@
         .game-info {
             font-size: 18px;
             margin-bottom: 20px;
+            color: #ffffff;
         }
 
         .score-difference {
             font-size: 24px;
             margin-bottom: 20px;
+            color: #ffffff;
         }
 
         .button-container {
@@ -140,16 +144,15 @@
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
 
-            if (outs % 6 === 0) {
+            if (outs % 3 === 0) {
+                document.getElementById('outs').innerText = 'Outs: 0';
                 nextInning();
             }
         }
 
         function nextInning() {
             inning++;
-            outs = 0;
             document.getElementById('inning').innerText = 'Inning: ' + inning;
-            document.getElementById('outs').innerText = 'Outs: 0';
 
             updateScoreDifference();
         }
