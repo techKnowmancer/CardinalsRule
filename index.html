@@ -16,6 +16,12 @@
             margin-top: 0;
         }
 
+        #clock {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         #scoreboard {
             display: flex;
             flex-direction: column;
@@ -80,6 +86,8 @@
 </head>
 <body>
     <h1>Baseball Score Tracker</h1>
+    
+    <div id="clock"></div>
 
     <div id="scoreboard">
         <div class="team" id="home-team">
@@ -102,7 +110,6 @@
         <button onclick="updateScore('home')">Home Team Scores</button>
         <button onclick="updateScore('away')">Away Team Scores</button>
         <button onclick="updateOuts()">Out</button>
-        <button onclick="nextInning()">Next Inning</button>
     </div>
 
     <script>
@@ -126,6 +133,10 @@
         function updateOuts() {
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
+
+            if (outs % 3 === 0) {
+                nextInning();
+            }
         }
 
         function nextInning() {
@@ -141,9 +152,9 @@
             const scoreDifference = homeScore - awayScore;
             const scoreDifferenceText = scoreDifference >= 0 ? `Winning by ${scoreDifference}` : `Losing by ${Math.abs(scoreDifference)}`;
             const scoreDifferenceElement = document.getElementById('score-difference');
-            
+
             scoreDifferenceElement.innerText = scoreDifferenceText;
-            
+
             // Add a class based on the score difference to apply styling
             if (scoreDifference > 0) {
                 scoreDifferenceElement.classList.add('winning');
@@ -156,6 +167,23 @@
                 scoreDifferenceElement.classList.remove('losing');
             }
         }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const formattedTime = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+
+            document.getElementById('clock').innerText = formattedTime;
+        }
+
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
     </script>
 </body>
 </html>
