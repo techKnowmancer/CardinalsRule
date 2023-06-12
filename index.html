@@ -29,12 +29,6 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            animation: scoreAnimation 1s ease infinite alternate;
-        }
-
-        @keyframes scoreAnimation {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
         }
 
         .team {
@@ -66,13 +60,6 @@
         .score-difference {
             font-size: 32px;
             margin-bottom: 20px;
-            animation: colorAnimation 1s ease infinite alternate;
-        }
-
-        @keyframes colorAnimation {
-            0% { color: green; }
-            50% { color: red; }
-            100% { color: green; }
         }
 
         .button-container {
@@ -107,6 +94,27 @@
             font-size: 32px;
             margin-top: 20px;
         }
+
+        .clock-container {
+            margin-top: 40px;
+            font-size: 48px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        .clock {
+            display: inline-block;
+            animation: clockAnimation 1s linear infinite;
+        }
+
+        @keyframes clockAnimation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -135,6 +143,10 @@
         </div>
     </div>
 
+    <div class="clock-container">
+        <span class="clock">⏰</span>
+    </div>
+
     <script>
         let homeScore = 0;
         let awayScore = 0;
@@ -144,12 +156,23 @@
             if (team === 'home') {
                 homeScore++;
                 document.getElementById('home-score').innerText = homeScore;
+                animateScoreboard();
             } else if (team === 'away') {
                 awayScore++;
                 document.getElementById('away-score').innerText = awayScore;
+                animateScoreboard();
             }
 
             updateScoreDifference();
+        }
+
+        function animateScoreboard() {
+            const scoreboard = document.querySelector('.scoreboard');
+            scoreboard.classList.remove('score-animation');
+
+            void scoreboard.offsetWidth; // Trigger reflow
+
+            scoreboard.classList.add('score-animation');
         }
 
         function updateOuts() {
