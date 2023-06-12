@@ -12,10 +12,6 @@
             padding: 20px;
         }
 
-        h1 {
-            margin-top: 0;
-        }
-
         #clock {
             font-size: 48px;
             font-weight: bold;
@@ -86,7 +82,7 @@
 </head>
 <body>
     <h1>Baseball Score Tracker</h1>
-    
+
     <div id="clock"></div>
 
     <div id="scoreboard">
@@ -173,7 +169,9 @@
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
-            const formattedTime = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12;
+            const formattedTime = `${formattedHours}:${formatTime(minutes)}:${formatTime(seconds)} ${ampm}`;
 
             document.getElementById('clock').innerText = formattedTime;
         }
