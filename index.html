@@ -13,13 +13,6 @@
             background-color: #f5f5f5;
         }
 
-        #clock {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333333;
-        }
-
         #scoreboard {
             display: flex;
             flex-direction: column;
@@ -90,15 +83,13 @@
     </style>
 </head>
 <body>
-    <div id="clock"></div>
-
     <div id="scoreboard">
         <div class="team" id="home-team">
-            <h3>Home Team</h3>
+            <h3>Cardinals</h3>
             <p id="home-score">0</p>
         </div>
         <div class="team" id="away-team">
-            <h3>Away Team</h3>
+            <h3>The Other Team</h3>
             <p id="away-score">0</p>
         </div>
     </div>
@@ -110,8 +101,8 @@
     </div>
 
     <div class="button-container">
-        <button onclick="updateScore('home')">Home Team Scores</button>
-        <button onclick="updateScore('away')">Away Team Scores</button>
+        <button onclick="updateScore('home')">Cardinals Score</button>
+        <button onclick="updateScore('away')">Other Team Scores</button>
         <button onclick="updateOuts()">Out</button>
     </div>
 
@@ -137,7 +128,7 @@
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
 
-            if (outs % 3 === 0) {
+            if (outs % 6 === 0) {
                 nextInning();
             }
         }
@@ -170,22 +161,6 @@
                 scoreDifferenceElement.classList.remove('losing');
             }
         }
-
-        function updateClock() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const formattedTime = `${hours}:${formatTime(minutes)}`;
-
-            document.getElementById('clock').innerText = formattedTime;
-        }
-
-        function formatTime(time) {
-            return time < 10 ? `0${time}` : time;
-        }
-
-        // Update the clock every minute
-        setInterval(updateClock, 60000);
     </script>
 </body>
 </html>
