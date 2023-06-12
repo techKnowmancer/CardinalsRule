@@ -4,41 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baseball Score Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        #scoreboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .team h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .team p {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        #game-info p {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .winning {
+            color: green;
+        }
+
+        .losing {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h1>Baseball Score Tracker</h1>
 
     <div id="scoreboard">
-        <h2>Score</h2>
-        <div id="home-team">
+        <div class="team" id="home-team">
             <h3>Home Team</h3>
             <p id="home-score">0</p>
         </div>
-        <div id="away-team">
+        <div class="team" id="away-team">
             <h3>Away Team</h3>
             <p id="away-score">0</p>
         </div>
     </div>
 
     <div id="game-info">
-        <h2>Game Info</h2>
         <p id="inning">Inning: 1</p>
         <p id="outs">Outs: 0</p>
+        <p id="score-difference"></p>
     </div>
 
-    <button onclick="updateScore('home')">Home Team Scores</button>
-    <button onclick="updateScore('away')">Away Team Scores</button>
-    <button onclick="updateOuts()">Out</button>
-    <button onclick="nextInning()">Next Inning</button>
+    <div class="button-container">
+        <button onclick="updateScore('home')">Home Team Scores</button>
+        <button onclick="updateScore('away')">Away Team Scores</button>
+        <button onclick="updateOuts()">Out</button>
+        <button onclick="nextInning()">Next Inning</button>
+    </div>
 
     <script>
-        // Variables to store the scores, inning, and outs
         let homeScore = 0;
         let awayScore = 0;
         let inning = 1;
         let outs = 0;
 
-        // Function to update the score for the specified team
         function updateScore(team) {
             if (team === 'home') {
                 homeScore++;
@@ -47,20 +119,42 @@
                 awayScore++;
                 document.getElementById('away-score').innerText = awayScore;
             }
+
+            updateScoreDifference();
         }
 
-        // Function to update the number of outs
         function updateOuts() {
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
         }
 
-        // Function to go to the next inning
         function nextInning() {
             inning++;
             outs = 0;
             document.getElementById('inning').innerText = 'Inning: ' + inning;
             document.getElementById('outs').innerText = 'Outs: 0';
+
+            updateScoreDifference();
+        }
+
+        function updateScoreDifference() {
+            const scoreDifference = homeScore - awayScore;
+            const scoreDifferenceText = scoreDifference >= 0 ? `Winning by ${scoreDifference}` : `Losing by ${Math.abs(scoreDifference)}`;
+            const scoreDifferenceElement = document.getElementById('score-difference');
+            
+            scoreDifferenceElement.innerText = scoreDifferenceText;
+            
+            // Add a class based on the score difference to apply styling
+            if (scoreDifference > 0) {
+                scoreDifferenceElement.classList.add('winning');
+                scoreDifferenceElement.classList.remove('losing');
+            } else if (scoreDifference < 0) {
+                scoreDifferenceElement.classList.add('losing');
+                scoreDifferenceElement.classList.remove('winning');
+            } else {
+                scoreDifferenceElement.classList.remove('winning');
+                scoreDifferenceElement.classList.remove('losing');
+            }
         }
     </script>
 </body>
