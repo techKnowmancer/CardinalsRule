@@ -47,18 +47,18 @@
 
         .team p {
             margin: 0;
-            font-size: 36px;
+            font-size: 48px;
             font-weight: bold;
             color: #333333;
         }
 
         .game-info {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
         .score-difference {
-            font-size: 24px;
+            font-size: 32px;
             margin-bottom: 20px;
         }
 
@@ -84,13 +84,13 @@
 
         .winning {
             color: green;
-            font-size: 24px;
+            font-size: 32px;
             margin-top: 20px;
         }
 
         .losing {
             color: red;
-            font-size: 24px;
+            font-size: 32px;
             margin-top: 20px;
         }
     </style>
@@ -109,23 +109,21 @@
         </div>
 
         <div class="game-info" id="game-info">
-            <p id="inning">Inning: 1</p>
             <p id="outs">Outs: 0</p>
         </div>
+
+        <div class="score-difference" id="score-difference"></div>
 
         <div class="button-container">
             <button onclick="updateScore('home')">Cardinals Score</button>
             <button onclick="updateScore('away')">Other Team Scores</button>
             <button onclick="updateOuts()">Out</button>
         </div>
-
-        <div class="score-difference" id="score-difference"></div>
     </div>
 
     <script>
         let homeScore = 0;
         let awayScore = 0;
-        let inning = 1;
         let outs = 0;
 
         function updateScore(team) {
@@ -150,9 +148,7 @@
         }
 
         function nextInning() {
-            inning++;
             outs = 0;
-            document.getElementById('inning').innerText = 'Inning: ' + inning;
             document.getElementById('outs').innerText = 'Outs: 0';
 
             updateScoreDifference();
