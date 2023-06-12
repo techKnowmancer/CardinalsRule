@@ -84,10 +84,14 @@
 
         .winning {
             color: green;
+            font-size: 24px;
+            margin-top: 20px;
         }
 
         .losing {
             color: red;
+            font-size: 24px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -109,13 +113,13 @@
             <p id="outs">Outs: 0</p>
         </div>
 
-        <div class="score-difference" id="score-difference"></div>
-
         <div class="button-container">
             <button onclick="updateScore('home')">Cardinals Score</button>
             <button onclick="updateScore('away')">Other Team Scores</button>
             <button onclick="updateOuts()">Out</button>
         </div>
+
+        <div class="score-difference" id="score-difference"></div>
     </div>
 
     <script>
@@ -140,7 +144,7 @@
             outs++;
             document.getElementById('outs').innerText = 'Outs: ' + outs;
 
-            if (outs % 6 === 0) {
+            if (outs === 3) {
                 nextInning();
             }
         }
